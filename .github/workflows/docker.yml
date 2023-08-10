@@ -40,5 +40,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            masayil/masayil/safe-transaction-service-web:${{ steps.setvars.outputs.tag }}
+            masayil/safe-transaction-service-web:${{ steps.setvars.outputs.tag }}
             masayil/safe-transaction-service-indexer-worker:${{ steps.setvars.outputs.tag }}
