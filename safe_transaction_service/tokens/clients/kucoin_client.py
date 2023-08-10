@@ -80,3 +80,10 @@ class KucoinClient(BaseHTTPClient):
         :raises: CannotGetPrice
         """
         return self._get_price("XDC-USDT")
+
+    def get_peel_usd_price(self) -> float:
+        """
+        :return: current USD price for APE Token
+        :raises: CannotGetPrice
+        """
+        return self._get_price("PEEL-USDT")
