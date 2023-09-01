@@ -193,12 +193,17 @@ class PriceService:
 
     def get_peel_usd_price(self) -> float:
         return self.kucoin_client.get_peel_usd_price()
+    def get_ftm_usd_price(self) -> float:
+        return self.kucoin_client.get_ftm_usd_price()
 
     def get_kcs_usd_price(self) -> float:
         try:
             return self.kucoin_client.get_kcs_usd_price()
         except CannotGetPrice:
             return self.coingecko_client.get_kcs_usd_price()
+
+    def get_mtr_usd_price(self) -> float:
+        return self.coingecko_client.get_mtr_usd_price()
 
     @cachedmethod(cache=operator.attrgetter("cache_ether_usd_price"))
     @cache_memoize(60 * 30, prefix="balances-get_ether_usd_price")  # 30 minutes
@@ -297,6 +302,16 @@ class PriceService:
             EthereumNetwork.APE_TESTNET,
         ):
             return self.get_peel_usd_price()
+        elif self.ethereum_network in (
+            EthereumNetwork.METER_MAINNET,
+            EthereumNetwork.METER_TESTNET,
+        ):
+            return self.coingecko_client.get_mtr_usd_price()
+        elif self.ethereum_network in (
+            EthereumNetwork.FANTOM_OPERA,
+            EthereumNetwork.FANTOM_TESTNET,
+        ):
+            return self.get_ftm_usd_price()
         else:
             return self.get_ether_usd_price()
 
